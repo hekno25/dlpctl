@@ -18,7 +18,7 @@ from PySide6.QtGui import (QAction, QBrush, QColor, QConicalGradient,
     QTransform)
 from PySide6.QtWidgets import (QApplication, QFrame, QGridLayout, QHBoxLayout,
     QLabel, QMainWindow, QMenu, QMenuBar,
-    QPushButton, QCheckBox, QCheckBox, QSizePolicy, QSlider,
+    QPushButton, QRadioButton, QSizePolicy, QSlider,
     QStatusBar, QTabWidget, QVBoxLayout, QWidget)
 
 class Ui_MainWindow(object):
@@ -26,7 +26,7 @@ class Ui_MainWindow(object):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
         MainWindow.setEnabled(True)
-        MainWindow.resize(1000, 900)
+        MainWindow.resize(1135, 957)
         MainWindow.setIconSize(QSize(30, 30))
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
@@ -145,88 +145,96 @@ class Ui_MainWindow(object):
         self.video_filters.setObjectName(u"video_filters")
         self.verticalLayout_3 = QVBoxLayout(self.video_filters)
         self.verticalLayout_3.setObjectName(u"verticalLayout_3")
-
-        self.pushButton_3 = QPushButton("Show Filters", self.video_filters)
-        self.pushButton_3.setObjectName(u"show_filters")
-        self.pushButton_3.setCheckable(True)
-        self.verticalLayout_3.addWidget(self.pushButton_3)
-
-
+        self.gridLayout = QGridLayout()
+        self.gridLayout.setObjectName(u"gridLayout")
+        self.label_2 = QLabel(self.video_filters)
+        self.label_2.setObjectName(u"label_2")
         font1 = QFont()
         font1.setPointSize(8)
         font1.setBold(False)
+        self.label_2.setFont(font1)
+
+        self.gridLayout.addWidget(self.label_2, 0, 0, 1, 1)
+
+        self.radioButton = QRadioButton(self.video_filters)
+        self.radioButton.setObjectName(u"radioButton")
+
+        self.gridLayout.addWidget(self.radioButton, 0, 1, 1, 1)
+
+        self.horizontalSlider = QSlider(self.video_filters)
+        self.horizontalSlider.setObjectName(u"horizontalSlider")
+        self.horizontalSlider.setOrientation(Qt.Orientation.Horizontal)
+
+        self.gridLayout.addWidget(self.horizontalSlider, 1, 0, 1, 2)
+
+
+        self.verticalLayout_3.addLayout(self.gridLayout)
+
+        self.gridLayout_3 = QGridLayout()
+        self.gridLayout_3.setObjectName(u"gridLayout_3")
+        self.label_3 = QLabel(self.video_filters)
+        self.label_3.setObjectName(u"label_3")
+        self.label_3.setFont(font1)
+
+        self.gridLayout_3.addWidget(self.label_3, 0, 0, 1, 1)
+
+        self.radioButton_2 = QRadioButton(self.video_filters)
+        self.radioButton_2.setObjectName(u"radioButton_2")
+
+        self.gridLayout_3.addWidget(self.radioButton_2, 0, 1, 1, 1)
+
+        self.horizontalSlider_2 = QSlider(self.video_filters)
+        self.horizontalSlider_2.setObjectName(u"horizontalSlider_2")
+        self.horizontalSlider_2.setOrientation(Qt.Orientation.Horizontal)
+
+        self.gridLayout_3.addWidget(self.horizontalSlider_2, 1, 0, 1, 2)
+
+
+        self.verticalLayout_3.addLayout(self.gridLayout_3)
 
         self.gridLayout_4 = QGridLayout()
         self.gridLayout_4.setObjectName(u"gridLayout_4")
         self.label_4 = QLabel(self.video_filters)
         self.label_4.setObjectName(u"label_4")
         self.label_4.setFont(font1)
-        self.gridLayout_4.addWidget(self.label_4, 0, 0, 1, 1)
-        self.checkBox_3 = QCheckBox(self.video_filters)
-        self.checkBox_3.setObjectName(u"checkBox_3")
-        self.gridLayout_4.addWidget(self.checkBox_3, 0, 1, 1, 1)
-        self.horizontalSlider_3 = QSlider(self.video_filters)
-        self.horizontalSlider_3.setObjectName(u"blur")
-        self.horizontalSlider_3.setOrientation(Qt.Orientation.Horizontal)
-        self.gridLayout_4.setColumnStretch(0, 1)
-        self.gridLayout_4.setColumnStretch(1, 0)
-        self.gridLayout_4.addWidget(self.horizontalSlider_3, 1, 0, 1, 2)
-        self.verticalLayout_3.addLayout(self.gridLayout_4)
 
+        self.gridLayout_4.addWidget(self.label_4, 0, 0, 1, 1)
+
+        self.radioButton_3 = QRadioButton(self.video_filters)
+        self.radioButton_3.setObjectName(u"radioButton_3")
+
+        self.gridLayout_4.addWidget(self.radioButton_3, 0, 1, 1, 1)
+
+        self.horizontalSlider_3 = QSlider(self.video_filters)
+        self.horizontalSlider_3.setObjectName(u"horizontalSlider_3")
+        self.horizontalSlider_3.setOrientation(Qt.Orientation.Horizontal)
+
+        self.gridLayout_4.addWidget(self.horizontalSlider_3, 1, 0, 1, 2)
+
+
+        self.verticalLayout_3.addLayout(self.gridLayout_4)
 
         self.gridLayout_5 = QGridLayout()
         self.gridLayout_5.setObjectName(u"gridLayout_5")
         self.label_5 = QLabel(self.video_filters)
         self.label_5.setObjectName(u"label_5")
         self.label_5.setFont(font1)
+
         self.gridLayout_5.addWidget(self.label_5, 0, 0, 1, 1)
-        self.checkBox_4 = QCheckBox(self.video_filters)
-        self.checkBox_4.setObjectName(u"checkBox_4")
-        self.gridLayout_5.addWidget(self.checkBox_4, 0, 1, 1, 1)
+
+        self.radioButton_4 = QRadioButton(self.video_filters)
+        self.radioButton_4.setObjectName(u"radioButton_4")
+
+        self.gridLayout_5.addWidget(self.radioButton_4, 0, 1, 1, 1)
+
         self.horizontalSlider_4 = QSlider(self.video_filters)
-        self.horizontalSlider_4.setObjectName(u"adapt_area")
+        self.horizontalSlider_4.setObjectName(u"horizontalSlider_4")
         self.horizontalSlider_4.setOrientation(Qt.Orientation.Horizontal)
-        self.gridLayout_5.setColumnStretch(0, 1)
-        self.gridLayout_5.setColumnStretch(1, 0)
+
         self.gridLayout_5.addWidget(self.horizontalSlider_4, 1, 0, 1, 2)
+
+
         self.verticalLayout_3.addLayout(self.gridLayout_5)
-
-
-        self.gridLayout_6 = QGridLayout()
-        self.gridLayout_6.setObjectName(u"gridLayout_6")
-        self.label_6 = QLabel(self.video_filters)
-        self.label_6.setObjectName(u"label_6")
-        self.label_6.setFont(font1)
-        self.gridLayout_6.addWidget(self.label_6, 0, 0, 1, 1)
-        self.checkBox_5 = QCheckBox(self.video_filters)
-        self.checkBox_5.setObjectName(u"checkBox_5")
-        self.gridLayout_6.addWidget(self.checkBox_5, 0, 1, 1, 1)
-        self.horizontalSlider_5 = QSlider(self.video_filters)
-        self.horizontalSlider_5.setObjectName(u"adapt_c")
-        self.horizontalSlider_5.setOrientation(Qt.Orientation.Horizontal)
-        self.gridLayout_6.setColumnStretch(0, 1)
-        self.gridLayout_6.setColumnStretch(1, 0)
-        self.gridLayout_6.addWidget(self.horizontalSlider_5, 1, 0, 1, 2)
-        self.verticalLayout_3.addLayout(self.gridLayout_6)
-
-
-        self.gridLayout_7 = QGridLayout()
-        self.gridLayout_7.setObjectName(u"gridLayout_7")
-        self.label_7 = QLabel(self.video_filters)
-        self.label_7.setObjectName(u"label_7")
-        self.label_7.setFont(font1)
-        self.gridLayout_7.addWidget(self.label_7, 0, 0, 1, 1)
-        self.checkBox_6 = QCheckBox(self.video_filters)
-        self.checkBox_6.setObjectName(u"checkBox_6")
-        self.gridLayout_7.addWidget(self.checkBox_6, 0, 1, 1, 1)
-        self.horizontalSlider_6 = QSlider(self.video_filters)
-        self.horizontalSlider_6.setObjectName(u"min_area")
-        self.horizontalSlider_6.setOrientation(Qt.Orientation.Horizontal)
-        self.gridLayout_7.setColumnStretch(0, 1)
-        self.gridLayout_7.setColumnStretch(1, 0)
-        self.gridLayout_7.addWidget(self.horizontalSlider_6, 1, 0, 1, 2)
-        self.verticalLayout_3.addLayout(self.gridLayout_7)
-
 
         self.tabWidget.addTab(self.video_filters, "")
         self.drawing = QWidget()
@@ -287,14 +295,14 @@ class Ui_MainWindow(object):
         self.pushButton.setText(QCoreApplication.translate("MainWindow", u"Connect Camera", None))
         self.pushButton_2.setText(QCoreApplication.translate("MainWindow", u"Connect DLP", None))
         self.tool_label.setText(QCoreApplication.translate("MainWindow", u"Tools", None))
-        self.label_4.setText(QCoreApplication.translate("MainWindow", u"Gaussian Blur", None))
-        self.checkBox_3.setText("")
-        self.label_5.setText(QCoreApplication.translate("MainWindow", u"Adapt Area", None))
-        self.checkBox_4.setText("")
-        self.label_6.setText(QCoreApplication.translate("MainWindow", u"Adapt Constant", None))
-        self.checkBox_5.setText("")
-        self.label_7.setText(QCoreApplication.translate("MainWindow", u"Min Area", None))
-        self.checkBox_6.setText("")
+        self.label_2.setText(QCoreApplication.translate("MainWindow", u"OpenCV Filter", None))
+        self.radioButton.setText("")
+        self.label_3.setText(QCoreApplication.translate("MainWindow", u"OpenCV Filter", None))
+        self.radioButton_2.setText("")
+        self.label_4.setText(QCoreApplication.translate("MainWindow", u"OpenCV Filter", None))
+        self.radioButton_3.setText("")
+        self.label_5.setText(QCoreApplication.translate("MainWindow", u"OpenCV Filter", None))
+        self.radioButton_4.setText("")
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.video_filters), QCoreApplication.translate("MainWindow", u"Video Filters", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.drawing), QCoreApplication.translate("MainWindow", u"Drawing", None))
         self.menuFile.setTitle(QCoreApplication.translate("MainWindow", u"File", None))

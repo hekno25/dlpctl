@@ -36,21 +36,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.capture.setEnabled(False)
         self.capture.pressed.connect(self.on_capture)
 
-
-        # opencv parameters
-        self.thresh_val = 79
-        self.max_val = 70
-        self.blur = 5
-        self.adapt_area = 60
-        self.adapt_c = 13
-        self.min_area = 25
-
-        # parameter sliders
-        self.horizontalSlider_3.valueChanged.connect(self.update_blur)
-        self.horizontalSlider_4.valueChanged.connect(self.update_adapt_area)
-        self.horizontalSlider_5.valueChanged.connect(self.update_adapt_c)
-        self.horizontalSlider_6.valueChanged.connect(self.update_min_area)
-
     def connect_camera(self):
         if self.camera is None:
             try:
@@ -107,28 +92,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             )
             pixmap = QPixmap.fromImage(q_img)
             self.video_frame.setPixmap(pixmap)
-    
-    def update_thresh_val(self, val):
-        self.thresh_val = val
-    
-    def update_max_val(self, val):
-        self.max_val = val
 
-    def update_blur(self, val):
-        if val % 2 == 0:
-            val += 1
-        self.blur = val
-    
-    def update_adapt_area(self, val):
-        if val % 2 == 0:
-            val += 1
-        self.adapt_area = val
-  
-    def update_adapt_c(self, val):
-        self.adapt_c = val
-
-    def update_min_area(self, val):
-        self.min_area = val
 
 if __name__ == "__main__":
     app = None
