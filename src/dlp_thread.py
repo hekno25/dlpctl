@@ -30,26 +30,26 @@ class ALPB_DMDTYPES(Enum):
 class ALP_RETURNCODES(Enum):
     SUCCESS = 0
     SUCC_PARTIAL = 1
-    ERROR = 0x80000000  # generic error, e.g. "not implemented"; should never be returned to user
-    ERR_NOT_FOUND = 0x80000001  # DevAlloc: serial number not found
-    ERR_DUPLICATE = (0x80000002,)  # DevAlloc: device already allocated
-    ERR_INIT = 0x80000003  # DevAlloc: initialization error
-    ERR_RESET = 0x80000004  # DevAlloc: init. error, maybe due to reset switch
-    ERR_HDEVICE = 0x80000005
-    ERR_DISCONNECT = 0x80000006
+    ERROR = 2147483648  # generic error, e.g. "not implemented"; should never be returned to user
+    ERR_NOT_FOUND = 2147483649  # DevAlloc: serial number not found
+    ERR_DUPLICATE = 2147483650  # DevAlloc: device already allocated
+    ERR_INIT = 2147483651  # DevAlloc: initialization error
+    ERR_RESET = 2147483652  # DevAlloc: init. error, maybe due to reset switch
+    ERR_HDEVICE = 2147483653
+    ERR_DISCONNECT = 2147483654
     ERR_CONNECTION = (
-        0x80000007  # connection error occurred, but device is (maybe) re-connected
+        2147483655  # connection error occurred, but device is (maybe) re-connected
     )
-    ERR_MT = 0x80000008
-    ERR_HALT = 0x80000009
-    ERR_MEM = 0x8000000A
-    ERR_MEM_I = 0x8000000B
-    ERR_PARAM = 0x8000000C
-    ERR_DONGLE = 0x8000000D
+    ERR_MT = 2147483656
+    ERR_HALT = 2147483657
+    ERR_MEM = 2147483658
+    ERR_MEM_I = 2147483659
+    ERR_PARAM = 2147483660
+    ERR_DONGLE = 2147483661
     ERR_API_DLL_MISSING = (
-        0x8000000E  # The responsible API DLL could not be loaded by the ALPX wrapper.
+        2147483662  # The responsible API DLL could not be loaded by the ALPX wrapper.
     )
-    ERR_API_DLL_UNKNOWN = 0x8000000F  # This ALP device version is not supported by this ALPX wrapper version.
+    ERR_API_DLL_UNKNOWN = 2147483663  # This ALP device version is not supported by this ALPX wrapper version.
 
 
 class DlpThread(QThread):
