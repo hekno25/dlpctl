@@ -1,12 +1,14 @@
 from enum import Enum
 from typing import Any, TypeAlias, override
 import numpy as np
-import ctypes
+from ctypes import CDLL, c_long, c_ulong
 from PySide6.QtCore import QMutex, QMutexLocker, QThread
 
 Img: TypeAlias = np.ndarray[tuple[int, int, int], np.dtype[np.uint8]]
 
-ALPB_HDEVICE: TypeAlias = ctypes.c_long
+ALP_ID: TypeAlias = c_long
+
+ALP_DEFAULT: c_long = c_long(0)
 
 
 class ALPB_DMDTYPES(Enum):
@@ -25,7 +27,7 @@ class ALPB_DMDTYPES(Enum):
     )  # DMD type not recognized or no DMD connected, this behaves like 1080p by default
 
 
-class ALPB_RETURNCODES(Enum):
+class ALP_RETURNCODES(Enum):
     SUCCESS = 0
     SUCC_PARTIAL = 1
     ERROR = 0x80000000  # generic error, e.g. "not implemented"; should never be returned to user
@@ -54,13 +56,12 @@ class DlpThread(QThread):
     def __init__(self) -> None:
         super().__init__()
 
-        self.dll: ctypes.CDLL = ctypes.CDLL("alp41basic.dll")
+        self.dll: CDLL = CDLL("./alpD41.dll")
 
-        self.alpid: ALPB_HDEVICE
-        self.dmdtype: ALPB_DMDTYPES
+        self.alpid: ALP_ID
         self.size_x: int
         self.size_y: int
-        self.serial: int = 0
+        self.serial: c_long = ALP_DEFAULT
 
         self.connected: bool = False
         self.running: bool = False
@@ -68,13 +69,13 @@ class DlpThread(QThread):
         self.set_img_mutex: QMutex = QMutex()
         self._img: Img | None = None
 
-        ret: ALPB_RETURNCODES = self.dll.AlpBDevAlloc(
-            ctypes.c_ulong(self.serial), self.alpid
+        ret: ALP_RETURNCODES = self.dll.AlpDevAlloc(
+            c_long(self.serial.value), self.alpid
         )
         print(ret)
 
         match ret.value:
-            case ALPB_RETURNCODES.SUCCESS.value:
+            case ALP_RETURNCODES.SUCCESS.value:
                 print("Allocated ALP successfully")
             case _:
                 print(f"Problem allocating ALP, return code: {ret.value}")
