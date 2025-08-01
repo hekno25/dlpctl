@@ -1,7 +1,7 @@
 from enum import Enum
 from typing import Any, TypeAlias, override
 import numpy as np
-from ctypes import CDLL, c_long, c_ulong
+from ctypes import CDLL, c_long, c_ulong, pointer
 from PySide6.QtCore import QMutex, QMutexLocker, QThread
 
 Img: TypeAlias = np.ndarray[tuple[int, int, int], np.dtype[np.uint8]]
@@ -58,7 +58,7 @@ class DlpThread(QThread):
 
         self.dll: CDLL = CDLL("./alpD41.dll")
 
-        self.alpid: ALP_ID
+        self.alpid: ALP_ID = c_long(0)
         self.size_x: int
         self.size_y: int
         self.serial: c_long = ALP_DEFAULT
@@ -70,11 +70,13 @@ class DlpThread(QThread):
         self._img: Img | None = None
 
         ret: ALP_RETURNCODES = self.dll.AlpDevAlloc(
-            c_long(self.serial.value), self.alpid
+            DeviceNum=c_long(self.serial.value),
+            InitFlag=ALP_DEFAULT,
+            ALP_ID=pointer(self.alpid),
         )
         print(ret)
 
-        match ret.value:
+        match ret:
             case ALP_RETURNCODES.SUCCESS.value:
                 print("Allocated ALP successfully")
             case _:
