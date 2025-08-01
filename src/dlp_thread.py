@@ -27,29 +27,23 @@ class ALPB_DMDTYPES(Enum):
     )  # DMD type not recognized or no DMD connected, this behaves like 1080p by default
 
 
-class ALP_RETURNCODES(Enum):
-    SUCCESS = 0
-    SUCC_PARTIAL = 1
-    ERROR = 2147483648  # generic error, e.g. "not implemented"; should never be returned to user
-    ERR_NOT_FOUND = 2147483649  # DevAlloc: serial number not found
-    ERR_DUPLICATE = 2147483650  # DevAlloc: device already allocated
-    ERR_INIT = 2147483651  # DevAlloc: initialization error
-    ERR_RESET = 2147483652  # DevAlloc: init. error, maybe due to reset switch
-    ERR_HDEVICE = 2147483653
-    ERR_DISCONNECT = 2147483654
-    ERR_CONNECTION = (
-        2147483655  # connection error occurred, but device is (maybe) re-connected
-    )
-    ERR_MT = 2147483656
-    ERR_HALT = 2147483657
-    ERR_MEM = 2147483658
-    ERR_MEM_I = 2147483659
-    ERR_PARAM = 2147483660
-    ERR_DONGLE = 2147483661
-    ERR_API_DLL_MISSING = (
-        2147483662  # The responsible API DLL could not be loaded by the ALPX wrapper.
-    )
-    ERR_API_DLL_UNKNOWN = 2147483663  # This ALP device version is not supported by this ALPX wrapper version.
+class Result(Enum):
+    ALP_OK = 0x00000000
+    ALP_NOT_ONLINE = 1001
+    ALP_NOT_IDLE = 1002
+    ALP_NOT_AVAILABLE = 1003
+    ALP_NOT_READY = 1004
+    ALP_PARM_INVALID = 1005
+    ALP_ADDR_INVALID = 1006
+    ALP_MEMORY_FULL = 1007
+    ALP_SEQ_IN_USE = 1008
+    ALP_HALTED = 1009
+    ALP_ERROR_INIT = 1010
+    ALP_ERROR_COMM = 1011
+    ALP_DEVICE_REMOVED = 1012
+    ALP_NOT_CONFIGURED = 1013
+    ALP_LOADER_VERSION = 1014
+    ALP_ERROR_POWER_DOWN = 1018
 
 
 class DlpThread(QThread):
@@ -58,7 +52,7 @@ class DlpThread(QThread):
 
         self.dll: CDLL = CDLL("./alpD41.dll")
 
-        self.alpid: ALP_ID = c_long(0)
+        self.alpid: ALP_ID = ALP_DEFAULT
         self.size_x: int
         self.size_y: int
         self.serial: c_long = ALP_DEFAULT
@@ -69,7 +63,7 @@ class DlpThread(QThread):
         self.set_img_mutex: QMutex = QMutex()
         self._img: Img | None = None
 
-        ret: ALP_RETURNCODES = self.dll.AlpDevAlloc(
+        ret: Result = self.dll.AlpDevAlloc(
             DeviceNum=c_long(self.serial.value),
             InitFlag=ALP_DEFAULT,
             ALP_ID=pointer(self.alpid),
@@ -77,7 +71,7 @@ class DlpThread(QThread):
         print(ret)
 
         match ret:
-            case ALP_RETURNCODES.SUCCESS.value:
+            case Result.ALP_OK.value:
                 print("Allocated ALP successfully")
             case _:
                 print(f"Problem allocating ALP, return code: {ret}")
