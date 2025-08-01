@@ -80,7 +80,7 @@ class DlpThread(QThread):
             case ALP_RETURNCODES.SUCCESS.value:
                 print("Allocated ALP successfully")
             case _:
-                print(f"Problem allocating ALP, return code: {ret.value}")
+                print(f"Problem allocating ALP, return code: {ret}")
 
     @override
     def run(self) -> None:
